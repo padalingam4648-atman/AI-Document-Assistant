@@ -1,0 +1,5 @@
+python-dotenv
+# optionally add any LLM or vector libraries you need:
+# openai
+# langchain
+# faiss-cpu
