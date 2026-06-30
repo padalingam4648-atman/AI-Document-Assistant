@@ -1,11 +1,27 @@
-from src.llm import LLM
+from src.llm import generate_response
 
 
-def test_llm_generate_and_embed():
-    llm = LLM(api_key="fake", model="gpt-test")
-    resp = llm.generate("hello")
-    assert isinstance(resp, str)
-    vecs = llm.embed(["a", "b"])
-    assert isinstance(vecs, list)
-    assert len(vecs) == 2
-    assert len(vecs[0]) == 1536
+def main():
+
+    print("=" * 70)
+    print("OLLAMA LLM TEST")
+    print("=" * 70)
+
+    while True:
+
+        prompt = input("\nPrompt (type 'exit' to quit): ")
+
+        if prompt.lower() == "exit":
+            break
+
+        answer = generate_response(prompt)
+
+        print("\n")
+        print("=" * 70)
+        print("LLM RESPONSE")
+        print("=" * 70)
+        print(answer)
+
+
+if __name__ == "__main__":
+    main()

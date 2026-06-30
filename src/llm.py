@@ -1,12 +1,49 @@
-from typing import List
+"""
+llm.py
 
-class LLM:
-    def __init__(self, api_key: str, model: str = "gpt-4o-mini"):
-        self.api_key = api_key
-        self.model = model
+Handles interaction with the Ollama Large Language Model.
+"""
 
-    def generate(self, prompt: str) -> str:
-        return "This is a placeholder response from the LLM."
+from langchain_ollama import ChatOllama
 
-    def embed(self, texts: List[str]) -> List[List[float]]:
-        return [[0.0] * 1536 for _ in texts]
+from src.config import Config
+
+
+def create_llm():
+    """
+    Create the Ollama LLM instance.
+
+    Returns
+    -------
+    ChatOllama
+    """
+
+    llm = ChatOllama(
+
+        model=Config.LLM_MODEL,
+
+        temperature=0.2,
+
+    )
+
+    return llm
+
+
+def generate_response(prompt: str) -> str:
+    """
+    Generate a response from the LLM.
+
+    Parameters
+    ----------
+    prompt : str
+
+    Returns
+    -------
+    str
+    """
+
+    llm = create_llm()
+
+    response = llm.invoke(prompt)
+
+    return response.content

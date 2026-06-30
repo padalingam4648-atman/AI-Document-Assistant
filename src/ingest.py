@@ -1,18 +1,72 @@
-from typing import List
+"""
+ingest.py
 
-from .document_loader import load_documents
-from .text_splitter import split_text
-from .embedding import create_embeddings
-from .vector_store import VectorStore
+Builds the complete FAISS knowledge base from documents.
+"""
+
+from src.document_loader import load_documents
+from src.text_splitter import split_documents
+from src.embedding import create_embedding_model
+from src.vector_store import (
+    create_vector_store,
+    save_vector_store,
+)
 
 
-def ingest_documents(source_dir: str, db_path: str) -> None:
-    documents = load_documents(source_dir)
-    all_chunks = []
-    for document in documents:
-        all_chunks.extend(split_text(document))
+def ingest_documents(folder_path: str):
+    """
+    Build the complete FAISS vector database.
 
-    vectors = create_embeddings(all_chunks)
-    store = VectorStore(db_path)
-    store.add_vectors(all_chunks, vectors)
-    store.save()
+    Parameters
+    ----------
+    folder_path : str
+        Folder containing PDF files.
+
+    Returns
+    -------
+    FAISS
+        Saved vector store.
+    """
+
+    print("\n" + "=" * 60)
+    print("STARTING DOCUMENT INGESTION")
+    print("=" * 60)
+
+    # -----------------------------------
+    # Step 1 : Load Documents
+    # -----------------------------------
+
+    documents = load_documents(folder_path)
+
+    # -----------------------------------
+    # Step 2 : Split Documents
+    # -----------------------------------
+
+    chunks = split_documents(documents)
+
+    # -----------------------------------
+    # Step 3 : Create Embedding Model
+    # -----------------------------------
+
+    embedding_model = create_embedding_model()
+
+    # -----------------------------------
+    # Step 4 : Create Vector Store
+    # -----------------------------------
+
+    vector_store = create_vector_store(
+        chunks,
+        embedding_model
+    )
+
+    # -----------------------------------
+    # Step 5 : Save FAISS
+    # -----------------------------------
+
+    save_vector_store(vector_store)
+
+    print("\n" + "=" * 60)
+    print("INGESTION COMPLETED SUCCESSFULLY")
+    print("=" * 60)
+
+    return vector_store
