@@ -1,52 +1,55 @@
 # 🤖 AI Document Assistant (Local RAG)
 
-A Local Retrieval-Augmented Generation (RAG) system built with **Python**, **LangChain**, **FAISS**, **Ollama**, and **Llama 3.2**.
+A Local Retrieval-Augmented Generation (RAG) application built with **Python**, **LangChain**, **Ollama**, **Llama 3.2**, **FAISS**, and **Streamlit**.
 
-The application allows users to chat with their own PDF documents completely offline by retrieving relevant document sections and generating context-aware answers using a local Large Language Model.
-
----
-
-# 📌 Features
-
-- 📄 Load multiple PDF documents
-- ✂️ Automatic document chunking
-- 🧠 Local embeddings using Ollama (`nomic-embed-text`)
-- 🔍 FAISS vector database for semantic search
-- 🤖 Local LLM using Llama 3.2
-- 💬 Interactive question-answering
-- 🔒 Fully offline (No OpenAI API required)
-- 📚 Modular and scalable architecture
+The application allows users to select a local folder containing PDF documents, build a vector database, and ask natural language questions about the document contents using a fully offline Large Language Model.
 
 ---
 
-# 🏗️ Project Architecture
+# ✨ Features
+
+- 📂 Select any local folder containing PDF files
+- 📄 Automatic PDF document loading
+- ✂️ Intelligent document chunking
+- 🧠 Local embeddings using Nomic Embed Text
+- 📦 FAISS vector database
+- 🔍 Semantic search
+- 🤖 Offline AI responses using Llama 3.2
+- 💬 Modern Streamlit interface
+- 📚 Document Library
+- 📊 Vector Database Information
+- 🔒 100% Offline (No OpenAI API)
+
+---
+
+# 🏗 Project Architecture
 
 ```
-                PDF Documents
+                  PDF Folder
                       │
                       ▼
               Document Loader
                       │
                       ▼
-              Text Splitter
+             Text Splitter
                       │
                       ▼
-            Ollama Embeddings
+           Nomic Embed Text
                       │
                       ▼
-              FAISS Vector Store
+             FAISS Vector Store
                       │
                       ▼
                  Retriever
                       │
                       ▼
-               Prompt Builder
+              Prompt Builder
                       │
                       ▼
-                Llama 3.2 (LLM)
+             Llama 3.2 (Ollama)
                       │
                       ▼
-              AI Generated Answer
+               AI Generated Answer
 ```
 
 ---
@@ -54,23 +57,16 @@ The application allows users to chat with their own PDF documents completely off
 # 📂 Project Structure
 
 ```
-Local-RAG/
+AI-Document-Assistant/
+
 │
 ├── data/
-│   ├── docs/
-│   ├── pdfs/
-│   └── txt/
-│
-├── db/
 │
 ├── faiss_index/
-│   ├── index.faiss
-│   └── index.pkl
 │
 ├── logs/
 │
 ├── src/
-│   ├── __init__.py
 │   ├── config.py
 │   ├── utils.py
 │   ├── logger.py
@@ -85,37 +81,28 @@ Local-RAG/
 │   └── rag_chain.py
 │
 ├── tests/
-│   ├── __init__.py
-│   ├── test_config.py
-│   ├── test_document_loader.py
-│   ├── test_embedding.py
-│   ├── test_ingest.py
-│   ├── test_llm.py
-│   ├── test_loader.py
-│   ├── test_prompt.py
-│   ├── test_rag_chain.py
-│   ├── test_retriever.py
-│   ├── test_text_splitter.py
-│   ├── test_utils.py
-│   └── test_vector_store.py
 │
 ├── app.py
+├── streamlit_app.py
 ├── requirements.txt
-├── README.md
-└── .env
+└── README.md
 ```
 
 ---
 
-# ⚙️ Technologies Used
+# 🛠 Technologies Used
 
 ### Programming Language
 
-- Python 3.12
+- Python
 
-### Frameworks
+### Framework
 
 - LangChain
+
+### Frontend
+
+- Streamlit
 
 ### Local LLM
 
@@ -124,7 +111,7 @@ Local-RAG/
 
 ### Embedding Model
 
-- nomic-embed-text
+- Nomic Embed Text (768 Dimensions)
 
 ### Vector Database
 
@@ -135,35 +122,39 @@ Local-RAG/
 - PyPDFLoader
 - RecursiveCharacterTextSplitter
 
+### Development Tools
+
+- Visual Studio Code
+- Git
+- GitHub
+
 ---
 
 # 🚀 Installation
 
-## 1 Clone Repository
+## Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/AI-Document-Assistant.git
+git clone https://github.com/padalingam4648-atman/AI-Document-Assistant.git
 
 cd AI-Document-Assistant
 ```
 
 ---
 
-## 2 Create Virtual Environment
+## Create Virtual Environment
 
 ```bash
 python -m venv .venv
 ```
 
-Activate
-
-Windows
+### Windows
 
 ```bash
 .venv\Scripts\activate
 ```
 
-Linux / Mac
+### Linux / macOS
 
 ```bash
 source .venv/bin/activate
@@ -171,7 +162,7 @@ source .venv/bin/activate
 
 ---
 
-## 3 Install Dependencies
+## Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -179,15 +170,15 @@ pip install -r requirements.txt
 
 ---
 
-## 4 Install Ollama
+## Install Ollama
 
-Download:
+Download and install Ollama:
 
 https://ollama.com
 
 ---
 
-## 5 Pull Models
+## Download Models
 
 ```bash
 ollama pull llama3.2
@@ -197,92 +188,178 @@ ollama pull llama3.2
 ollama pull nomic-embed-text
 ```
 
-Verify
+Verify:
 
 ```bash
 ollama list
 ```
 
-Expected
+Expected output:
 
 ```
 llama3.2
+
 nomic-embed-text
 ```
 
 ---
 
-# 📄 Build Knowledge Base
+# ▶ Running the Application
 
-Run
+Start the Streamlit application:
 
 ```bash
-python app.py
+streamlit run streamlit_app.py
 ```
 
-Choose
+The application will open automatically in your browser.
+
+Default URL:
 
 ```
-1. Build Knowledge Base
+http://localhost:8501
 ```
 
-Select the folder containing PDF files.
+---
 
-The system will
+# 📂 Using the Application
 
-- Load PDFs
-- Split into chunks
+### Step 1
+
+Open the **Select PDF Folder** page.
+
+---
+
+### Step 2
+
+Choose a local folder containing PDF files.
+
+Example:
+
+```
+C:\Users\Padalingam\Documents\PDFs
+```
+
+The application displays:
+
+- Selected Folder
+- Total PDFs
+- PDF Names
+
+---
+
+### Step 3
+
+Open the **Build Knowledge Base** page.
+
+Click:
+
+```
+Build Knowledge Base
+```
+
+The application automatically:
+
+- Loads all PDFs
+- Splits documents into chunks
+- Generates embeddings
+- Creates the FAISS vector database
+- Saves the vector index
+
+---
+
+### Step 4
+
+Open the **AI Chat** page.
+
+Ask questions like:
+
+```
+Explain the Mobi-Locator project.
+```
+
+```
+What technologies are used in my AI project?
+```
+
+```
+Summarize my resume.
+```
+
+The AI retrieves the most relevant document chunks and generates a context-aware response.
+
+---
+
+# 📄 Streamlit Pages
+
+### 🏠 Dashboard
+
+Displays:
+
+- Total PDFs
+- Document Chunks
+- Embedding Model
+- LLM Model
+- Vector Database
+
+---
+
+### 📂 Select PDF Folder
+
+- Browse local directory
+- Validate PDF files
+- Display PDF information
+
+---
+
+### 🧠 Build Knowledge Base
+
+- Build FAISS index
 - Generate embeddings
-- Create FAISS index
 - Save vector database
 
 ---
 
-# 💬 Chat With Documents
+### 💬 AI Chat
 
-Run
+- Ask questions
+- AI-generated responses
+- Retrieved source documents
+- Chat history
 
-```bash
-python app.py
-```
+---
 
-Choose
+### 📄 Document Library
 
-```
-2. Chat with Documents
-```
+Displays:
 
-Example
+- PDF Names
+- File Size
+- Last Modified Date
 
-```
-Explain the Mobi-Locator Project
-```
+---
 
-Output
+### 📦 Vector Database
 
-```
-Project Overview
+Displays:
 
-Mobi-Locator is an Android-based mobile security application
-that enables remote device control using SMS commands.
+- Embedding Model
+- Embedding Dimension
+- Number of Chunks
+- Vector Database
+- Top-K Retrieval
 
-Features
+---
 
-• GPS Tracking
-• SMS Commands
-• Background Services
+### ⚙ Settings
 
-Tech Stack
+Displays current configuration:
 
-• Kotlin
-• Android SDK
-• BroadcastReceiver
-
-Source
-
-Resume.pdf
-Page 1
-```
+- Chunk Size
+- Chunk Overlap
+- Embedding Model
+- LLM Model
+- FAISS Directory
 
 ---
 
@@ -309,7 +386,7 @@ Llama 3.2
 
 ↓
 
-Answer
+Generated Answer
 ```
 
 ---
@@ -318,39 +395,34 @@ Answer
 
 | Phase | Module | Status |
 |--------|--------|--------|
-| 1 | Config | ✅ |
+| 1 | Project Setup | ✅ |
 | 2 | Document Loader | ✅ |
 | 3 | Text Splitter | ✅ |
-| 4 | Embedding | ✅ |
+| 4 | Embedding Model | ✅ |
 | 5 | FAISS Vector Store | ✅ |
-| 6 | Ingest Pipeline | ✅ |
+| 6 | Ingestion Pipeline | ✅ |
 | 7 | Retriever | ✅ |
-| 8 | Prompt Builder | ✅ |
-| 9 | LLM | ✅ |
+| 8 | Prompt Engineering | ✅ |
+| 9 | LLM Integration | ✅ |
 | 10 | RAG Chain | ✅ |
-| 11 | Application | ✅ |
+| 11 | Streamlit Interface | ✅ |
 | 12 | RAG Optimization | 🚧 Planned |
 
 ---
 
-# 📈 Future Improvements
+# 🚀 Future Improvements
 
-- Streamlit Web UI
-- Conversation Memory
-- Chat History
+- Support DOCX, TXT, and Markdown
 - Hybrid Search (BM25 + FAISS)
+- Metadata Filtering
 - MMR Retrieval
 - Reranking
-- Multi-format Document Support (PDF, DOCX, TXT)
-- Metadata Filtering
-- Source Highlighting
-- REST API using FastAPI
-
----
-
-# 📜 License
-
-This project is licensed under the MIT License.
+- Chunk Viewer
+- Embedding Visualization
+- Multi-User Authentication
+- Conversation Memory
+- Dark/Light Theme Toggle
+- Export AI Responses
 
 ---
 
@@ -360,8 +432,14 @@ This project is licensed under the MIT License.
 
 Computer Science Engineer | Cyber Security | AI Engineering
 
-GitHub:
+### GitHub
+
 https://github.com/padalingam4648-atman
 
-Portfolio:
+### Portfolio
+
 https://padalingam-portfolio.netlify.app
+
+---
+
+# ⭐ If you found this project useful, consider giving it a Star on GitHub!

@@ -4,6 +4,8 @@ ingest.py
 Builds the complete FAISS knowledge base from documents.
 """
 
+from pathlib import Path
+
 from src.document_loader import load_documents
 from src.text_splitter import split_documents
 from src.embedding import create_embedding_model
@@ -13,13 +15,13 @@ from src.vector_store import (
 )
 
 
-def ingest_documents(folder_path: str):
+def ingest_documents(folder_path):
     """
     Build the complete FAISS vector database.
 
     Parameters
     ----------
-    folder_path : str
+    folder_path : str | Path
         Folder containing PDF files.
 
     Returns
@@ -27,6 +29,9 @@ def ingest_documents(folder_path: str):
     FAISS
         Saved vector store.
     """
+
+    # Convert string to Path if needed
+    folder_path = Path(folder_path)
 
     print("\n" + "=" * 60)
     print("STARTING DOCUMENT INGESTION")
@@ -38,11 +43,19 @@ def ingest_documents(folder_path: str):
 
     documents = load_documents(folder_path)
 
+    if not documents:
+        print("❌ No documents found.")
+        return None
+
     # -----------------------------------
     # Step 2 : Split Documents
     # -----------------------------------
 
     chunks = split_documents(documents)
+
+    if not chunks:
+        print("❌ No chunks created.")
+        return None
 
     # -----------------------------------
     # Step 3 : Create Embedding Model
@@ -60,7 +73,7 @@ def ingest_documents(folder_path: str):
     )
 
     # -----------------------------------
-    # Step 5 : Save FAISS
+    # Step 5 : Save Vector Store
     # -----------------------------------
 
     save_vector_store(vector_store)
